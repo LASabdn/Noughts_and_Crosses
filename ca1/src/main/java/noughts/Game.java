@@ -6,8 +6,10 @@
 
 package noughts;
 
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  *
@@ -71,5 +73,49 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(4), boxChar(5), boxChar(6));
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
-    
+
+    public List<List> generateWincons() {
+        List win1 = Arrays.asList(1,2,3);
+        List win2 = Arrays.asList(1,4,7);
+        List win3 = Arrays.asList(1,5,9);
+        List win4 = Arrays.asList(4,5,6);
+        List win5 = Arrays.asList(2,5,8);
+        List win6 = Arrays.asList(7,8,9);
+        List win7 = Arrays.asList(3,6,9);
+        List win8 = Arrays.asList(3,5,7);
+        List<List> wincons = new ArrayList<List>();
+        wincons.add(win1);
+        wincons.add(win2);
+        wincons.add(win3);
+        wincons.add(win4);
+        wincons.add(win5);
+        wincons.add(win6);
+        wincons.add(win7);
+        wincons.add(win8);
+
+        return(wincons);
+    }
+
+    public char checkWinner(char player, ArrayList<Integer> moves, List<List> wincons){
+        for (List con : wincons){
+            if (moves.containsAll(con)){
+                return (player);
+            }
+        }
+        return ('n');
+    }
+
+    public boolean initWin(char winner, Game game){
+        if (winner == 'h'){
+            game.printBoard();
+            System.out.println("Congratulations!  You won!");
+            return (true);
+        }
+        else if (winner == 'c'){
+            game.printBoard();
+            System.out.println("The computer won!  Bad luck!");
+            return (true);
+        }
+        return (false);
+    }
 }

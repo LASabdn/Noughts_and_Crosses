@@ -8,6 +8,10 @@
  package noughts;
 
 import java.util.Scanner;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 class Play{
     Game game;   // the noughts and crosses game
@@ -22,22 +26,95 @@ class Play{
             System.out.println("Welcome to noughts and crosses"); 
             game = new Game();  // create game board
             input = new Scanner(System.in);  // Scanner for user input
-            while (true) { // infinite loop
+            boolean gameover = false;
+            char winner;
+            ArrayList<Integer> HumanMove = new ArrayList<Integer>();
+            ArrayList<Integer> ComputerMove = new ArrayList<Integer>();
+            List<List> wincons = game.generateWincons();
+            // Was going to make below section a method, but it needed the HumanMove and ComputerMove Lists to be used as parameters and returned which I couldn't get to work.
+            boolean start = false;
+            String choice = "";
+            int gofirst = 0;
+            while (!start){
+                System.out.print("Do you want to go first? y/n: ");
+                choice = input.next();
+                System.out.println(choice);
+                if (choice.equals("n")){
+                    ComputerMove = (computerTurn(ComputerMove, HumanMove));
+                    gofirst = 1;
+                    start = true;
+                }
+                else if (choice.equals("y")){
+                    gofirst = 0;
+                    start = true;
+                }
+                else{
+                    System.out.println("Did not input y or n.");
+                }
+            }
+
+            for(int turns = 0; turns<(5-gofirst); turns++) { // not-so-infinite loop
                 game.printBoard(); // print board
-                playerTurn(); // human turn
-                computerTurn(); // computer tuen
-        }
+                HumanMove = (playerTurn(HumanMove)); // human turn
+                winner = game.checkWinner('h',HumanMove,wincons);
+                if (game.initWin(winner,game)){
+                    gameover = true;
+                    break;
+                }
+                ComputerMove = (computerTurn(ComputerMove, HumanMove)); // computer tuen
+                winner = game.checkWinner('c',ComputerMove,wincons);
+                if (game.initWin(winner,game)){
+                    gameover = true;
+                    break;
+                }
+            }
+            if (!gameover){
+                game.printBoard();
+                System.out.println("Looks like it was a tie!");
+            }
     }
-    public void playerTurn()  {
-        // Player turn: just read in a sqaure and claim it for human
-        System.out.print("Take a square (1-9): ");
+    public ArrayList<Integer> playerTurn(ArrayList<Integer> hmovelist)  {
+        // Player turn: just read in a sqaure and claim it for Human
+        while(true){
+            try{
+                System.out.print("Take a square (1-9): ");
                 // Reading data using readLine
-        int square = input.nextInt();
-        game.setHuman(square);
+                int square = Integer.parseInt(input.next());
+                if (game.isComputer(square) || game.isHuman(square)){
+                    System.out.println("This square is already taken.  Please choose another.");
+                    playerTurn(hmovelist);
+                    break;
+                }
+                else{
+                    hmovelist.add(square);
+                    game.setHuman(square);
+                    return(hmovelist);
+                }      
+            }
+            catch (Exception e){
+            System.out.println("Please input a valid integer.");
+            }   
+        }
+        
+        return(hmovelist);
     }
 
-    public void computerTurn() {
+    public ArrayList<Integer> computerTurn(ArrayList<Integer> cmovelist, ArrayList<Integer> hmovelist) {
         // computer turn - currently does nothing other than print out a message
+        if ((cmovelist.size() + hmovelist.size())==9){
+            return(cmovelist);
+        }
         System.out.println("Computer is thinking");
+        Random rand = new Random();
+        int square = rand.nextInt(9) + 1;
+        if(game.isComputer(square) || game.isHuman(square)){
+            computerTurn(cmovelist,hmovelist);
+        }
+        else{
+            cmovelist.add(square);
+            game.setComputer(square);
+            return(cmovelist);
+        }
+        return(cmovelist);
     }
 }
