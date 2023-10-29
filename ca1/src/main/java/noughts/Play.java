@@ -31,6 +31,7 @@ class Play{
             ArrayList<Integer> HumanMove = new ArrayList<Integer>();
             ArrayList<Integer> ComputerMove = new ArrayList<Integer>();
             List<List> wincons = game.generateWincons();
+            List<List> compwincons = wincons;
             // Was going to make below section a method, but it needed the HumanMove and ComputerMove Lists to be used as parameters and returned which I couldn't get to work.
             boolean start = false;
             String choice = "";
@@ -40,7 +41,7 @@ class Play{
                 choice = input.next();
                 System.out.println(choice);
                 if (choice.equals("n")){
-                    ComputerMove = (computerTurn(ComputerMove, HumanMove));
+                    ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons));
                     gofirst = 1;
                     start = true;
                 }
@@ -61,7 +62,7 @@ class Play{
                     gameover = true;
                     break;
                 }
-                ComputerMove = (computerTurn(ComputerMove, HumanMove)); // computer tuen
+                ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons)); // computer tuen
                 winner = game.checkWinner('c',ComputerMove,wincons);
                 if (game.initWin(winner,game)){
                     gameover = true;
@@ -99,16 +100,16 @@ class Play{
         return(hmovelist);
     }
 
-    public ArrayList<Integer> computerTurn(ArrayList<Integer> cmovelist, ArrayList<Integer> hmovelist) {
+    public ArrayList<Integer> computerTurn(ArrayList<Integer> cmovelist, ArrayList<Integer> hmovelist, List<List> compwincons) {
         // computer turn - currently does nothing other than print out a message
         if ((cmovelist.size() + hmovelist.size())==9){
             return(cmovelist);
         }
         System.out.println("Computer is thinking");
-        Random rand = new Random();
-        int square = rand.nextInt(9) + 1;
+        int square = 0;
+        square = game.computeMove(1, hmovelist, cmovelist, compwincons);
         if(game.isComputer(square) || game.isHuman(square)){
-            computerTurn(cmovelist,hmovelist);
+            computerTurn(cmovelist,hmovelist,compwincons);
         }
         else{
             cmovelist.add(square);

@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -75,23 +76,38 @@ public class Game {
     }
 
     public List<List> generateWincons() {
-        List win1 = Arrays.asList(1,2,3);
-        List win2 = Arrays.asList(1,4,7);
-        List win3 = Arrays.asList(1,5,9);
-        List win4 = Arrays.asList(4,5,6);
-        List win5 = Arrays.asList(2,5,8);
-        List win6 = Arrays.asList(7,8,9);
-        List win7 = Arrays.asList(3,6,9);
-        List win8 = Arrays.asList(3,5,7);
-        List<List> wincons = new ArrayList<List>();
-        wincons.add(win1);
-        wincons.add(win2);
-        wincons.add(win3);
-        wincons.add(win4);
-        wincons.add(win5);
-        wincons.add(win6);
-        wincons.add(win7);
-        wincons.add(win8);
+        ArrayList<Integer> win1 = new ArrayList<Integer>();
+        win1.add(1);
+        win1.add(2);
+        win1.add(3);
+        ArrayList<Integer> win2 = new ArrayList<Integer>();
+        win2.add(1);
+        win2.add(4);
+        win2.add(7);
+        ArrayList<Integer> win3 = new ArrayList<Integer>();
+        win3.add(1);
+        win3.add(5);
+        win3.add(9);
+        ArrayList<Integer> win4 = new ArrayList<Integer>();
+        win4.add(4);
+        win4.add(5);
+        win4.add(6);
+        ArrayList<Integer> win5 = new ArrayList<Integer>();
+        win5.add(2);
+        win5.add(5);
+        win5.add(8);
+        ArrayList<Integer> win6 = new ArrayList<Integer>();
+        win6.add(7);
+        win6.add(8);
+        win6.add(9);
+        ArrayList<Integer> win7 = new ArrayList<Integer>();
+        win7.add(3);
+        win7.add(6);
+        win7.add(9);
+        ArrayList<Integer> win8 = new ArrayList<Integer>();
+        win8.add(3);
+        win8.add(5);
+        win8.add(7);
 
         return(wincons);
     }
@@ -117,5 +133,31 @@ public class Game {
             return (true);
         }
         return (false);
+    }
+
+    public Integer computeMove(int humanin, ArrayList<Integer> HumanMove, ArrayList<Integer> ComputerMove, List<List> compwincons){
+        //block human
+        Random rand = new Random();
+        int human_count=0;
+        int move = 0;
+        for (List con : compwincons){
+            human_count = 0;
+            List<Integer> focus = con;
+            System.out.println(focus);
+            
+            for (Integer pos : focus){
+                if (HumanMove.contains(pos)){
+                    focus.remove(Integer.valueOf(pos));
+                    human_count ++;
+                }
+            }
+            
+            if (human_count > 1){
+                move = focus.get(0);
+                return (move);
+            }
+        }
+        move = rand.nextInt(9) + 1;
+        return (move);
     }
 }
