@@ -109,6 +109,16 @@ public class Game {
         win8.add(5);
         win8.add(7);
 
+        List<List> wincons = new ArrayList<List>();
+        wincons.add(win1);
+        wincons.add(win2);
+        wincons.add(win3);
+        wincons.add(win4);
+        wincons.add(win5);
+        wincons.add(win6);
+        wincons.add(win7);
+        wincons.add(win8);
+        
         return(wincons);
     }
 
@@ -143,21 +153,24 @@ public class Game {
         for (List con : compwincons){
             human_count = 0;
             List<Integer> focus = con;
-            System.out.println(focus);
-            
+            ArrayList<Integer> remove_list = new ArrayList<Integer>();
             for (Integer pos : focus){
                 if (HumanMove.contains(pos)){
-                    focus.remove(Integer.valueOf(pos));
+                    remove_list.add(Integer.valueOf(pos));
                     human_count ++;
                 }
             }
-            
+
             if (human_count > 1){
+                int rem1 = remove_list.get(0);
+                int rem2 = remove_list.get(1);
+                focus.remove(Integer.valueOf(rem1));
+                focus.remove(Integer.valueOf(rem2));
                 move = focus.get(0);
-                return (move);
+                return(move);
             }
         }
         move = rand.nextInt(9) + 1;
-        return (move);
+        return(move);
     }
 }
