@@ -41,6 +41,7 @@ class Play{
                 choice = input.next();
                 System.out.println(choice);
                 if (choice.equals("n")){
+                    System.out.println("Computer is thinking");
                     ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons));
                     gofirst = 1;
                     start = true;
@@ -62,6 +63,7 @@ class Play{
                     gameover = true;
                     break;
                 }
+                System.out.println("Computer is thinking");
                 ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons)); // computer tuen
                 System.out.println(wincons);
                 System.out.println(compwincons);
@@ -109,7 +111,6 @@ class Play{
         if ((cmovelist.size() + hmovelist.size())==9){
             return(cmovelist);
         }
-        System.out.println("Computer is thinking");
         int square = 0;
         square = game.computeMove(1, hmovelist, cmovelist, compwincons);
         if(game.isComputer(square) || game.isHuman(square)){
