@@ -31,7 +31,7 @@ class Play{
             ArrayList<Integer> HumanMove = new ArrayList<Integer>();
             ArrayList<Integer> ComputerMove = new ArrayList<Integer>();
             List<List> wincons = game.generateWincons();
-            List<List> compwincons = wincons;
+            List<List> compwincons = game.generateWincons();
             // Was going to make below section a method, but it needed the HumanMove and ComputerMove Lists to be used as parameters and returned which I couldn't get to work.
             boolean start = false;
             String choice = "";
@@ -63,6 +63,10 @@ class Play{
                     break;
                 }
                 ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons)); // computer tuen
+                System.out.println(wincons);
+                System.out.println(compwincons);
+                System.out.println(HumanMove);
+                System.out.println(ComputerMove);
                 winner = game.checkWinner('c',ComputerMove,wincons);
                 if (game.initWin(winner,game)){
                     gameover = true;
