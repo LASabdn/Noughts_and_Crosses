@@ -65,10 +65,6 @@ class Play{
                 }
                 System.out.println("Computer is thinking");
                 ComputerMove = (computerTurn(ComputerMove, HumanMove, compwincons)); // computer tuen
-                System.out.println(wincons);
-                System.out.println(compwincons);
-                System.out.println(HumanMove);
-                System.out.println(ComputerMove);
                 winner = game.checkWinner('c',ComputerMove,wincons);
                 if (game.initWin(winner,game)){
                     gameover = true;
