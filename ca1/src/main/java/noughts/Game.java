@@ -146,10 +146,32 @@ public class Game {
     }
 
     public Integer computeMove(int humanin, ArrayList<Integer> HumanMove, ArrayList<Integer> ComputerMove, List<List> compwincons){
-        //block human
         Random rand = new Random();
         int human_count=0;
         int move = 0;
+        //complete self
+        for (List con : compwincons){
+            human_count = 0;
+            List<Integer> focus = con;
+            ArrayList<Integer> remove_list = new ArrayList<Integer>();
+            for (Integer pos : focus){
+                if (ComputerMove.contains(pos)){
+                    remove_list.add(Integer.valueOf(pos));
+                    human_count ++;
+                }
+            }
+
+            if (human_count > 1){
+                int rem1 = remove_list.get(0);
+                int rem2 = remove_list.get(1);
+                focus.remove(Integer.valueOf(rem1));
+                focus.remove(Integer.valueOf(rem2));
+                move = focus.get(0);
+                return(move);
+            }
+        }
+        
+        //block human
         for (List con : compwincons){
             human_count = 0;
             List<Integer> focus = con;
