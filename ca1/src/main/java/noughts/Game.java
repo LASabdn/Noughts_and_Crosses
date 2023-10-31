@@ -145,7 +145,7 @@ public class Game {
         return (false);
     }
 
-    public Integer computeMove(int humanin, ArrayList<Integer> HumanMove, ArrayList<Integer> ComputerMove, List<List> compwincons){
+    public Integer computeMove(ArrayList<Integer> HumanMove, ArrayList<Integer> ComputerMove, List<List> compwincons, List<List> humanwincons){
         Random rand = new Random();
         int human_count=0;
         int move = 0;
@@ -167,12 +167,18 @@ public class Game {
                 focus.remove(Integer.valueOf(rem1));
                 focus.remove(Integer.valueOf(rem2));
                 move = focus.get(0);
-                return(move);
+                if (!HumanMove.contains(move)){
+                    return(move);
+                }
+                focus.add(rem1);
+                focus.add(rem2);
+                move = 0;
             }
         }
         
         //block human
-        for (List con : compwincons){
+        System.out.println("blocking human");
+        for (List con : humanwincons){
             human_count = 0;
             List<Integer> focus = con;
             ArrayList<Integer> remove_list = new ArrayList<Integer>();
@@ -189,7 +195,12 @@ public class Game {
                 focus.remove(Integer.valueOf(rem1));
                 focus.remove(Integer.valueOf(rem2));
                 move = focus.get(0);
-                return(move);
+                if (!ComputerMove.contains(move)){
+                    return(move);
+                }
+                focus.add(rem1);
+                focus.add(rem2);
+                move = 0;
             }
         }
         move = rand.nextInt(9) + 1;

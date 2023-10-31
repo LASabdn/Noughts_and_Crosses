@@ -2,6 +2,7 @@ package noughts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class PlayTest
         assertEquals('n',test_winner);
 
         //Now let's check computer
-        test_moves.clear();
+        test_moves.clear(); //we just use our old list to simulate human moves because we don't need both lists to exist at the same time.
         test_moves.add(3);
         test_moves.add(4);
         test_moves.add(5);
@@ -79,7 +80,7 @@ public class PlayTest
         test_moves.add(4);
         test_moves.add(8);
         List<List> wincons = game.generateWincons();
-        char test_winner = game.checkWinner('h', test_moves,wincons); //we're using generateWincons because we just tested it
+        char test_winner = game.checkWinner('h', test_moves,wincons);
         assertEquals('n',test_winner);
 
         //Now let's check computer
@@ -103,7 +104,7 @@ public class PlayTest
         test_moves.add(7);
         test_moves.add(8);
         List<List> wincons = game.generateWincons();
-        char test_winner = game.checkWinner('h', test_moves,wincons); //we're using generateWincons because we just tested it
+        char test_winner = game.checkWinner('h', test_moves,wincons);
         assertEquals('h',test_winner);
 
         //Now let's check the computer loses
@@ -125,7 +126,7 @@ public class PlayTest
         test_moves.add(6);
         test_moves.add(9);
         List<List> wincons = game.generateWincons();
-        char test_winner = game.checkWinner('h', test_moves,wincons); //we're using generateWincons because we just tested it
+        char test_winner = game.checkWinner('h', test_moves,wincons);
         assertEquals('h',test_winner);
 
         //Now let's check the computer loses
@@ -148,7 +149,7 @@ public class PlayTest
         test_moves.add(8);
         test_moves.add(9);
         List<List> wincons = game.generateWincons();
-        char test_winner = game.checkWinner('h', test_moves,wincons); //we're using generateWincons because we just tested it
+        char test_winner = game.checkWinner('h', test_moves,wincons);
         assertEquals('n',test_winner);
 
         //Now let's check the computer wins
@@ -170,7 +171,7 @@ public class PlayTest
         test_moves.add(6);
         test_moves.add(9);
         List<List> wincons = game.generateWincons();
-        char test_winner = game.checkWinner('h', test_moves,wincons); //we're using generateWincons because we just tested it
+        char test_winner = game.checkWinner('h', test_moves,wincons);
         assertEquals('n',test_winner);
 
         //Now let's check the computer wins
@@ -183,4 +184,64 @@ public class PlayTest
         assertEquals('c',test_winner);
     }
 
+    //Let's now check that initWin() actually works
+
+    //first we test for a situation where no win should be initiated
+    @Test
+    public void check_no_win_initiated(){
+        boolean win = game.initWin('n', game);
+        assertFalse(win);
+    }
+
+    //next we test for a situation where a human win is initiated
+    @Test
+    public void check_human_win_initiated(){
+        boolean win = game.initWin('h', game);
+        assertTrue(win);
+    }
+
+    //next we test for a situation where a loss occurs (computer wins)
+    @Test
+    public void check_computer_win_initiated(){
+        boolean win = game.initWin('c', game);
+        assertTrue(win);
+    }
+
+
+    //Next we test if the computer player behaves in an intended way
+    
+    //first we test computeMove()
+    //Does the method output a valid move for an empty board? (i.e is it between 1 and 9?)
+    @Test
+    public void computer_moves_on_empty_board(){
+        ArrayList human_test_moves = new ArrayList();
+        ArrayList computer_test_moves = new ArrayList();
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertTrue(0<=test_move && test_move<=9);
+    }
+
+    //Does the method output a move to block a player?
+    @Test
+    public void computer_blocks_player_1(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(3);
+        human_test_moves.add(4);
+        human_test_moves.add(8);
+        ArrayList computer_test_moves = new ArrayList();
+        computer_test_moves.add(9);
+        computer_test_moves.add(2);
+        computer_test_moves.add(5);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        System.out.println(human_test_moves);
+        System.out.println(computer_test_moves);
+        System.out.println(comp_test_cons);
+        System.out.println(human_test_cons);
+        System.out.println(test_move);
+        assertEquals(7,test_move); //the computer needs to play 7 to block the human
+    }
 }
