@@ -14,7 +14,7 @@ import java.util.Random;
 
 /**
  *
- * @author ereiter
+ * @author ereiter and lshaw
  */
 public class Game {
     
@@ -131,7 +131,7 @@ public class Game {
         return ('n');
     }
 
-    public boolean initWin(char winner, Game game){
+    public boolean initWin(char winner, Game game){ //initiate win sequence
         if (winner == 'h'){
             game.printBoard();
             System.out.println("Congratulations!  You won!");
