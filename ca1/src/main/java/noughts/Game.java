@@ -15,6 +15,7 @@ import java.util.Random;
 /**
  *
  * @author ereiter and lshaw
+ * Below stuff is provided code
  */
 public class Game {
     
@@ -75,41 +76,43 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
 
-    public List<List> generateWincons() {
-        ArrayList<Integer> win1 = new ArrayList<Integer>();
+    //This where my own methods begin
+
+    public List<List> generateWincons() { //this method generates a list of lists where each list is the squares needed to win a game.
+        ArrayList<Integer> win1 = new ArrayList<Integer>(); //win condition (1,2,3)
         win1.add(1);
         win1.add(2);
         win1.add(3);
-        ArrayList<Integer> win2 = new ArrayList<Integer>();
+        ArrayList<Integer> win2 = new ArrayList<Integer>(); //wincon (1,4,7)
         win2.add(1);
         win2.add(4);
         win2.add(7);
-        ArrayList<Integer> win3 = new ArrayList<Integer>();
+        ArrayList<Integer> win3 = new ArrayList<Integer>(); //wincon (1,5,9)
         win3.add(1);
         win3.add(5);
         win3.add(9);
-        ArrayList<Integer> win4 = new ArrayList<Integer>();
+        ArrayList<Integer> win4 = new ArrayList<Integer>(); //wincon (4,5,6)
         win4.add(4);
         win4.add(5);
         win4.add(6);
-        ArrayList<Integer> win5 = new ArrayList<Integer>();
+        ArrayList<Integer> win5 = new ArrayList<Integer>(); //wincon (2,5,8)
         win5.add(2);
         win5.add(5);
         win5.add(8);
-        ArrayList<Integer> win6 = new ArrayList<Integer>();
+        ArrayList<Integer> win6 = new ArrayList<Integer>(); //wincon (7,8,9)
         win6.add(7);
         win6.add(8);
         win6.add(9);
-        ArrayList<Integer> win7 = new ArrayList<Integer>();
+        ArrayList<Integer> win7 = new ArrayList<Integer>(); //wincon (3,6,9)
         win7.add(3);
         win7.add(6);
         win7.add(9);
-        ArrayList<Integer> win8 = new ArrayList<Integer>();
+        ArrayList<Integer> win8 = new ArrayList<Integer>(); //wincon (3,5,7)
         win8.add(3);
         win8.add(5);
         win8.add(7);
 
-        List<List> wincons = new ArrayList<List>();
+        List<List> wincons = new ArrayList<List>(); //adds all win conditions to a list
         wincons.add(win1);
         wincons.add(win2);
         wincons.add(win3);
@@ -123,6 +126,8 @@ public class Game {
     }
 
     public char checkWinner(char player, ArrayList<Integer> moves, List<List> wincons){
+        //every turn, this method is called to check if someone won.  Returns 'h' (from parameters) for human win, returns 'c' for computer
+        //'n' signifies no winner was detected and the game continues
         for (List con : wincons){
             if (moves.containsAll(con)){
                 return (player);
@@ -146,10 +151,14 @@ public class Game {
     }
 
     public Integer computeMove(ArrayList<Integer> HumanMove, ArrayList<Integer> ComputerMove, List<List> compwincons, List<List> humanwincons){
+        //returns a move based on the situation the computer is in.  
         Random rand = new Random();
         int human_count=0;
         int move = 0;
         //complete self
+        /*The method goes through the list of all wincons.  If it finds a wincon where two of the spots are taken,
+        //it will remove these two spots from the list and try to move to the remaining number.  If the spots are taken by the human,
+        then the computer undoes the process and looks for another wincon (if there is one)*/
         for (List con : compwincons){
             human_count = 0;
             List<Integer> focus = con;
@@ -177,7 +186,7 @@ public class Game {
         }
         
         //block human
-        System.out.println("blocking human");
+        //works like last loop except it tries to complete a set of two human moves
         for (List con : humanwincons){
             human_count = 0;
             List<Integer> focus = con;
@@ -203,6 +212,8 @@ public class Game {
                 move = 0;
             }
         }
+        //if there's no completion or blocking opportunities, computer just picks a random number.
+        //I coded it like this so you still have a chance to win against the computer as I thought it would be more fun.
         move = rand.nextInt(9) + 1;
         return(move);
     }

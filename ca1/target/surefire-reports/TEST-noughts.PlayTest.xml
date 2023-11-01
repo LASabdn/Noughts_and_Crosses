@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="noughts.PlayTest" time="0.033" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="noughts.PlayTest" time="0.06" tests="25" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="java.specification.version" value="11"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/zulu-11-amd64/lib"/>
-    <property name="sun.java.command" value="/home/codio/workspace/ca1/target/surefire/surefirebooter17072153746067948398.jar /home/codio/workspace/ca1/target/surefire 2023-10-31T21-50-23_454-jvmRun1 surefire18115907552277415551tmp surefire_015283761662250692861tmp"/>
+    <property name="sun.java.command" value="/home/codio/workspace/ca1/target/surefire/surefirebooter15672828391176875772.jar /home/codio/workspace/ca1/target/surefire 2023-11-01T14-28-16_210-jvmRun1 surefire1108697823531324144tmp surefire_010137126136649452956tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/codio/workspace/ca1/target/test-classes:/home/codio/workspace/ca1/target/classes:/home/codio/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.2/junit-jupiter-engine-5.8.2.jar:/home/codio/.m2/repository/org/junit/platform/junit-platform-engine/1.8.2/junit-platform-engine-1.8.2.jar:/home/codio/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/codio/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/home/codio/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/home/codio/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,12 +32,12 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="jdk.vendor.version" value="Zulu11.41+23-CA"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/codio/workspace/ca1/target/surefire/surefirebooter17072153746067948398.jar"/>
+    <property name="surefire.real.class.path" value="/home/codio/workspace/ca1/target/surefire/surefirebooter15672828391176875772.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.8+10-LTS"/>
     <property name="user.name" value="codio"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="5.19.0-1029-aws"/>
+    <property name="os.version" value="6.2.0-1012-aws"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
@@ -58,18 +58,29 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="computer_moves_on_empty_board" classname="noughts.PlayTest" time="0.009"/>
-  <testcase name="list_from_generateWincons_has_length_8" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="computer_completes_instead_of_blocking_1" classname="noughts.PlayTest" time="0.026"/>
+  <testcase name="computer_completes_instead_of_blocking_2" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="computer_moves_on_empty_board" classname="noughts.PlayTest" time="0"/>
+  <testcase name="list_from_generateWincons_has_length_8" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_completes_with_two_wins_1" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_completes_with_two_wins_2" classname="noughts.PlayTest" time="0"/>
   <testcase name="check_for_tie_1" classname="noughts.PlayTest" time="0"/>
   <testcase name="check_for_tie_2" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_completes_1" classname="noughts.PlayTest" time="0.004"/>
+  <testcase name="computer_completes_2" classname="noughts.PlayTest" time="0"/>
   <testcase name="list_from_generateWincons_has_elements_length_3" classname="noughts.PlayTest" time="0"/>
-  <testcase name="sublists_in_generateWincons_have_correct_elements" classname="noughts.PlayTest" time="0.002"/>
-  <testcase name="check_for_computer_win_1" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="computer_completes_and_blocks_1" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_completes_and_blocks_2" classname="noughts.PlayTest" time="0"/>
+  <testcase name="sublists_in_generateWincons_have_correct_elements" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="check_for_computer_win_1" classname="noughts.PlayTest" time="0"/>
   <testcase name="check_for_computer_win_2" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="computer_blocks_player_mult_1" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_blocks_player_mult_2" classname="noughts.PlayTest" time="0"/>
   <testcase name="check_computer_win_initiated" classname="noughts.PlayTest" time="0.003"/>
   <testcase name="computer_blocks_player_1" classname="noughts.PlayTest" time="0.001"/>
-  <testcase name="check_human_win_initiated" classname="noughts.PlayTest" time="0.007"/>
-  <testcase name="check_for_human_win_1" classname="noughts.PlayTest" time="0"/>
+  <testcase name="computer_blocks_player_2" classname="noughts.PlayTest" time="0"/>
+  <testcase name="check_human_win_initiated" classname="noughts.PlayTest" time="0.001"/>
+  <testcase name="check_for_human_win_1" classname="noughts.PlayTest" time="0.001"/>
   <testcase name="check_for_human_win_2" classname="noughts.PlayTest" time="0"/>
   <testcase name="check_no_win_initiated" classname="noughts.PlayTest" time="0"/>
 </testsuite>

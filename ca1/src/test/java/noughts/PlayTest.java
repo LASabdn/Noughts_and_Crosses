@@ -230,18 +230,198 @@ public class PlayTest
         human_test_moves.add(3);
         human_test_moves.add(4);
         human_test_moves.add(8);
-        ArrayList computer_test_moves = new ArrayList();
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
         computer_test_moves.add(9);
         computer_test_moves.add(2);
         computer_test_moves.add(5);
         List<List> comp_test_cons = game.generateWincons();
         List<List> human_test_cons = game.generateWincons();
         Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
-        System.out.println(human_test_moves);
-        System.out.println(computer_test_moves);
-        System.out.println(comp_test_cons);
-        System.out.println(human_test_cons);
-        System.out.println(test_move);
         assertEquals(7,test_move); //the computer needs to play 7 to block the human
     }
+
+    //Does blocking work for another scenario?
+    @Test
+    public void computer_blocks_player_2(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(5);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(2);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(9,test_move); //the computer needs to play 9 to block the human
+    }
+
+    //If the player has two wins available, will the computer block at least one?
+    @Test
+    public void computer_blocks_player_mult_1(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(4);
+        human_test_moves.add(5);
+        human_test_moves.add(7);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(1);
+        computer_test_moves.add(2);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertTrue(test_move == 6 || test_move == 3); //the computer needs to play 3 or 6 to block
+    }
+
+    //Will this work in another scenario?
+    @Test
+    public void computer_blocks_player_mult_2(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(5);
+        human_test_moves.add(6);
+        human_test_moves.add(9);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(3);
+        computer_test_moves.add(7);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertTrue(test_move == 1 || test_move == 4); //the computer needs to play 1 or 4 to block
+    }
+
+    //Will the computer complete if the opportunity arises?
+    @Test
+    public void computer_completes_1(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(2);
+        human_test_moves.add(5);
+        human_test_moves.add(6);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(1);
+        computer_test_moves.add(4);
+        computer_test_moves.add(8);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(7,test_move); //the computer needs to play 7 to complete
+    }
+
+    //Will this work in another scenario?
+    @Test
+    public void computer_completes_2(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(2);
+        human_test_moves.add(5);
+        human_test_moves.add(6);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(3);
+        computer_test_moves.add(8);
+        computer_test_moves.add(9);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(7,test_move); //the computer needs to play 7 to complete
+    }
+
+    //If the computer has two wins available, will it complete at least one?
+    @Test
+    public void computer_completes_with_two_wins_1(){   
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(2);
+        human_test_moves.add(9);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(1);
+        computer_test_moves.add(4);
+        computer_test_moves.add(5);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertTrue(test_move == 6 || test_move == 7); //the computer needs to play 6 or 7 to complete
+    }
+
+    //What about another scenario?
+    @Test
+    public void computer_completes_with_two_wins_2(){   
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(9);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(2);
+        computer_test_moves.add(4);
+        computer_test_moves.add(5);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertTrue(test_move == 6 || test_move == 8); //the computer needs to play 6 or 8 to complete
+    }
+
+    //If the computer can both block and complete on the same square, will it pick it?
+    @Test
+    public void computer_completes_and_blocks_1(){   
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(6);
+        human_test_moves.add(8);
+        human_test_moves.add(9);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(2);
+        computer_test_moves.add(3);
+        computer_test_moves.add(5);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(7,test_move); //the computer needs to play 7 to complete and block
+    }
+
+    //Another scenario?
+    @Test
+    public void computer_completes_and_blocks_2(){   
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(2);
+        human_test_moves.add(3);
+        human_test_moves.add(6);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(1);
+        computer_test_moves.add(5);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(9,test_move); //the computer needs to play  to complete and block
+    }
+
+    //If the computer has the opportunity to complete or block, it should complete
+    @Test
+    public void computer_completes_instead_of_blocking_1(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(1);
+        human_test_moves.add(2);
+        human_test_moves.add(7);
+        human_test_moves.add(8);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(4);
+        computer_test_moves.add(5);
+        computer_test_moves.add(3);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(6,test_move); //the computer needs to play 6 to complete instead of blocking on 9
+    }
+
+    //Will this happen in another scenario?
+    @Test
+    public void computer_completes_instead_of_blocking_2(){
+        ArrayList human_test_moves = new ArrayList(); //simulate human moves
+        human_test_moves.add(2);
+        human_test_moves.add(5);
+        human_test_moves.add(6);
+        human_test_moves.add(9);
+        ArrayList computer_test_moves = new ArrayList(); //simulate computer moves
+        computer_test_moves.add(1);
+        computer_test_moves.add(3);
+        computer_test_moves.add(7);
+        List<List> comp_test_cons = game.generateWincons();
+        List<List> human_test_cons = game.generateWincons();
+        Integer test_move = game.computeMove(human_test_moves,computer_test_moves,comp_test_cons,human_test_cons);
+        assertEquals(4,test_move); //the computer needs to play 6 to complete instead of blocking on 9
+    }
+
+    //This concludes testing of the computer AI
 }
